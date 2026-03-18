@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ef;
+    --black: #0f0f0c;
+    --white: #faf8f4;
+    --accent: #c8390a;
+    --gold: #b8962a;
+    --muted: #8a857a;
+    --border: rgba(15,15,12,0.1);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Syne', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--black); font-family: var(--sans); overflow-x: hidden; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(247,244,239,0.93);
+    backdrop-filter: blur(16px);
+  }
+  .nav-logo { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .nav-tabs { display: flex; gap: 0; }
+  .nav-tab {
+    padding: 0.4rem 1rem;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover, .nav-tab.active { color: var(--black); border-color: var(--border); background: var(--white); }
+  .nav-avail { display: flex; align-items: center; gap: 1.2rem; font-family: var(--mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .nav-avail a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-avail a:hover { color: var(--accent); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf50; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 2.5rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: end;
+    border-bottom: 1px solid var(--border);
+    min-height: 60vh;
+  }
+  .hero-left { display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5rem; }
+  .hero-eyebrow { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 0.8rem; }
+  .hero-eyebrow::before { content:''; width:2rem; height:1px; background:var(--accent); display:block; }
+  .hero-title { font-family: var(--serif); font-size: clamp(3rem, 6vw, 6.5rem); font-weight: 700; line-height: 1.0; }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-desc { font-family: var(--serif); font-size: 1.05rem; font-style: italic; color: var(--muted); line-height: 1.7; max-width: 460px; }
+  .hero-right { display: flex; flex-direction: column; gap: 2rem; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .stat-box { background: var(--bg); padding: 1.5rem 1rem; text-align: center; }
+  .stat-n { font-family: var(--serif); font-size: 2.5rem; font-style: italic; color: var(--accent); line-height: 1; }
+  .stat-l { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+  .hero-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .cat-pill { padding: 0.35rem 0.9rem; border: 1px solid var(--border); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: all 0.2s; }
+  .cat-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── SECTION HEADER ── */
+  .sec-head {
+    padding: 3.5rem 2.5rem 2rem;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1px solid var(--border);
+  }
+  .sec-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .sec-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 400; }
+  .sec-title em { font-style: italic; color: var(--accent); }
+  .sec-note { font-family: var(--serif); font-style: italic; font-size: 0.9rem; color: var(--muted); max-width: 280px; text-align: right; line-height: 1.5; }
+
+  /* ── GRIDS ── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border); }
+  .g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; background: var(--border); }
+  .g-wide { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2px; background: var(--border); }
+  .g-wide-r { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2px; background: var(--border); }
+
+  .gi { background: var(--bg); overflow: hidden; position: relative; }
+  .gi img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 280px; transition: transform 0.55s cubic-bezier(0.16,1,0.3,1); }
+  .gi:hover img { transform: scale(1.04); }
+  .gi-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.2rem 1rem; background: linear-gradient(transparent, rgba(15,15,12,0.72)); opacity: 0; transition: opacity 0.3s; }
+  .gi:hover .gi-cap { opacity: 1; }
+  .gi-cap span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247,244,239,0.9); }
+
+  /* tall image */
+  .gi.tall img { min-height: 480px; }
+  /* square */
+  .gi.sq img { aspect-ratio: 1; min-height: 0; }
+  /* contain (for flat art/infographics) */
+  .gi.contain img { object-fit: contain; background: var(--white); padding: 1.5rem; }
+  .gi.contain-dark img { object-fit: contain; background: #1a1a14; padding: 1.5rem; }
+
+  /* ── DARK INSIGHT ── */
+  .insight {
+    background: var(--black); color: var(--bg);
+    padding: 3.5rem 2.5rem;
+    display: grid; grid-template-columns: 1fr 1.8fr;
+    gap: 4rem; align-items: start;
+  }
+  .ins-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .ins-head { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; line-height: 1.2; }
+  .ins-head em { font-style: italic; color: var(--accent); }
+  .ins-body { font-family: var(--serif); font-size: 1rem; font-style: italic; color: rgba(247,244,239,0.65); line-height: 1.75; margin-bottom: 1.5rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag { padding: 0.3rem 0.8rem; border: 1px solid rgba(247,244,239,0.15); font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247,244,239,0.4); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.8rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+  }
+  footer span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .f-accent { color: var(--accent) !important; }
+
+  /* ── REVEAL ── */
+  .r { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .r.in { opacity: 1; transform: none; }
+  .r.d1 { transition-delay: 0.1s; }
+  .r.d2 { transition-delay: 0.2s; }
+  .r.d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-tabs { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem 2.5rem; gap: 2rem; min-height: auto; }
+    .sec-head { flex-direction: column; gap: 1rem; padding: 2.5rem 1.5rem 1.5rem; }
+    .sec-note { text-align: left; max-width: 100%; }
+    .g2,.g3,.g4,.g-wide,.g-wide-r { grid-template-columns: 1fr; }
+    .insight { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AI Design Portfolio</a>
+  <div class="nav-tabs">
+    <a href="#mockups" class="nav-tab">Мокапы</a>
+    <a href="#prints" class="nav-tab">Принты</a>
+    <a href="#product" class="nav-tab">Продукт</a>
+    <a href="#infographic" class="nav-tab">Инфографика</a>
+  </div>
+  <div class="nav-avail">
+    <span class="dot"></span>
+    <a href="tel:89640338206">8 964 033 82 06</a>
+    <a href="https://t.me/Eilis_A" target="_blank">@Eilis_A</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero r">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Selected Works · 2025–2026</div>
+    <h1 class="hero-title">AI<br><em>Fashion</em><br>Design</h1>
+    <p class="hero-desc">Коммерческие мокапы, принты и визуализации продуктов, созданные с помощью нейросетей. От концепции до готового контента.</p>
+    <div class="hero-cats">
+      <span class="cat-pill">Fashion Mockup</span>
+      <span class="cat-pill">AI Print</span>
+      <span class="cat-pill">Product Visualization</span>
+      <span class="cat-pill">Infographic</span>
+      <span class="cat-pill">Illustration</span>
+    </div>
+  </div>
+  <div class="hero-right r d1">
+    <div class="hero-stats">
+      <div class="stat-box"><div class="stat-n">12+</div><div class="stat-l">Проектов</div></div>
+      <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Направления</div></div>
+      <div class="stat-box"><div class="stat-n">100%</div><div class="stat-l">AI-генерация</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: FASHION MOCKUPS -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="mockups" class="sec-head r">
+  <div>
+    <div class="sec-label">01 — Fashion Mockups</div>
+    <h2 class="sec-title"><em>Lifestyle</em> мокапы</h2>
+  </div>
+  <p class="sec-note">Нейросетевые мокапы для e-commerce и соцсетей: разные локации, образы, аудитории.</p>
+</div>
+
+<!-- Row 1: wide left + right -->
+<div class="g-wide r">
+  <div class="gi tall">
+    <img src="m6.png" alt="Вертолёт — luxury mockup">
+    <div class="gi-cap"><span>Luxury · Helicopter · Winter</span></div>
+  </div>
+  <div class="gi tall">
+    <img src="m1.png" alt="Розовая футболка — кафе">
+    <div class="gi-cap"><span>Café · Urban Chic · Pink</span></div>
+  </div>
+</div>
+
+<!-- Row 2: 3 columns — Red Square male -->
+<div class="g3 r">
+  <div class="gi">
+    <img src="m4.png" alt="Мужчина Красная площадь 1">
+    <div class="gi-cap"><span>Red Square · Male · White</span></div>
+  </div>
+  <div class="gi">
+    <img src="m5.png" alt="Мужчина Красная площадь 2">
+    <div class="gi-cap"><span>Red Square · Male · Shot 02</span></div>
+  </div>
+  <div class="gi">
+    <img src="m7.png" alt="Street style beige">
+    <div class="gi-cap"><span>Street Style · Beige · European</span></div>
+  </div>
+</div>
+
+<!-- Row 3: 4 columns — varied lifestyle -->
+<div class="g2 r">
+  <div class="gi">
+    <img src="m2.png" alt="Чёрная футболка Новый год вешалка">
+    <div class="gi-cap"><span>Christmas · Product Flat · Black</span></div>
+  </div>
+  <div class="gi">
+    <img src="m3.png" alt="Чёрная футболка Новый год девушка">
+    <div class="gi-cap"><span>Christmas · Lifestyle · Black</span></div>
+  </div>
+</div>
+
+<!-- Red Flag mockups -->
+<div class="g3 r">
+  <div class="gi">
+    <img src="img3.jpg" alt="Red Flag — плитка">
+    <div class="gi-cap"><span>Red Flag · Interior · Bold</span></div>
+  </div>
+  <div class="gi">
+    <img src="img5.jpg" alt="Red Flag — пляж">
+    <div class="gi-cap"><span>Red Flag · Beach · Sport</span></div>
+  </div>
+  <div class="gi">
+    <img src="img6.jpg" alt="Red Flag — ретро">
+    <div class="gi-cap"><span>Red Flag · Vintage · Editorial</span></div>
+  </div>
+</div>
+
+<!-- Insight 1 -->
+<div class="insight r">
+  <div>
+    <div class="ins-label">Подход</div>
+    <h3 class="ins-head">Мокапы без <em>съёмки</em></h3>
+  </div>
+  <div>
+    <p class="ins-body">AI-мокапы позволяют протестировать десятки локаций и образов до начала производства. Один час работы — готовый контент для нескольких маркетплейсов. Все сцены фотореалистичны и адаптированы под разную аудиторию: luxury, street, sport, casual.</p>
+    <div class="tags">
+      <span class="tag">ChatGPT Image</span>
+      <span class="tag">Midjourney</span>
+      <span class="tag">E-commerce</span>
+      <span class="tag">Instagram Content</span>
+      <span class="tag">Pre-production Testing</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: AI PRINTS -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="prints" class="sec-head r">
+  <div>
+    <div class="sec-label">02 — AI Print Design</div>
+    <h2 class="sec-title">Принты <em>& иллюстрации</em></h2>
+  </div>
+  <p class="sec-note">Генеративные принты для одежды и иллюстративные работы в разных стилях.</p>
+</div>
+
+<!-- Sunflower print — wide showcase -->
+<div class="g-wide-r r">
+  <div class="gi tall">
+    <img src="p2.png" alt="Подсолнухи — автомобиль">
+    <div class="gi-cap"><span>Sunflower Print · In-car Selfie</span></div>
+  </div>
+  <div class="gi tall">
+    <img src="p1.png" alt="Подсолнухи — street">
+    <div class="gi-cap"><span>Sunflower Print · Street Style</span></div>
+  </div>
+</div>
+
+<!-- Peony print + Russia illustration -->
+<div class="g3 r">
+  <div class="gi">
+    <img src="img1.jpg" alt="Принт пионы">
+    <div class="gi-cap"><span>Peony Print · Black Tee · AI Generated</span></div>
+  </div>
+  <div class="gi contain" style="background:#fff;">
+    <img src="ill1.jpg" alt="Сердечко">
+    <div class="gi-cap"><span>Россия · Illustration · Print Design</span></div>
+  </div>
+  <div class="gi">
+    <img src="img4.jpg" alt="Red flag">
+    <div class="gi-cap"><span>Peony Print · Red Square · Moscow</span></div>
+  </div>
+</div>
+
+<!-- Insight 2 -->
+<div class="insight r">
+  <div>
+    <div class="ins-label">Стиль</div>
+    <h3 class="ins-head">От <em>принта</em> до образа</h3>
+  </div>
+  <div>
+    <p class="ins-body">Принт генерируется, сразу накладывается на мокап и тестируется в реальном образе — всё в одном пайплайне. Ботанические иллюстрации, народные мотивы, графические паттерны — каждый принт готов к производству.</p>
+    <div class="tags">
+      <span class="tag">Botanical Illustration</span>
+      <span class="tag">Folk Art</span>
+      <span class="tag">Print-ready Files</span>
+      <span class="tag">AI Illustration</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: PRODUCT VISUALIZATION -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="product" class="sec-head r">
+  <div>
+    <div class="sec-label">03 — Product Visualization</div>
+    <h2 class="sec-title">Продуктовые <em>визуализации</em></h2>
+  </div>
+  <p class="sec-note">3D-сцены и рекламные визуалы для продуктов без реальной фотосессии.</p>
+</div>
+
+<div class="g-wide r">
+  <div class="gi tall">
+    <img src="prod1.png" alt="Битва мемов упаковка">
+    <div class="gi-cap"><span>«Битва Мемов» · Board Game · Packaging 3D Scene</span></div>
+  </div>
+  <div style="background: var(--bg); display: flex; flex-direction: column; gap: 2px;">
+    <div class="gi" style="flex: 1;">
+      <img src="m10.png" alt="Звукус" style="min-height: 200px;">
+      <div class="gi-cap"><span>Seasonal Campaign · Gift Context</span></div>
+    </div>
+    <div style="padding: 2rem; background: var(--black); flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1rem;">
+      <div style="font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);">Ключевой кейс</div>
+      <p style="font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: rgba(247,244,239,0.8); line-height: 1.6;">Создание рекламной 3D-сцены для настольной игры без реального продукта — только AI-визуализация упаковки в зимнем контексте с персонажами.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+        <span style="padding: 0.3rem 0.8rem; border: 1px solid rgba(247,244,239,0.15); font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247,244,239,0.4);">3D Scene</span>
+        <span style="padding: 0.3rem 0.8rem; border: 1px solid rgba(247,244,239,0.15); font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247,244,239,0.4);">Packaging Design</span>
+        <span style="padding: 0.3rem 0.8rem; border: 1px solid rgba(247,244,239,0.15); font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247,244,239,0.4);">AI Characters</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: INFOGRAPHIC -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="infographic" class="sec-head r">
+  <div>
+    <div class="sec-label">04 — Infographic Design</div>
+    <h2 class="sec-title">Инфографика <em>& UX-контент</em></h2>
+  </div>
+  <p class="sec-note">Визуализация данных и коммерческий контент для маркетплейсов и соцсетей.</p>
+</div>
+
+<div class="g2 r">
+  <div class="gi">
+    <img src="inf1.png" alt="Размерная сетка" style="object-fit: contain; background: #1a1a14; padding: 0;">
+    <div class="gi-cap"><span>Размерная сетка · Wildberries / OZON format</span></div>
+  </div>
+  <div style="background: var(--black); padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;">
+    <div style="font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);">О работе</div>
+    <h3 style="font-family: var(--serif); font-size: 2rem; font-weight: 400; color: #f7f4ef; line-height: 1.2;">Коммерческий контент<br><em style="font-style:italic; color:var(--accent);">для маркетплейсов</em></h3>
+    <p style="font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: rgba(247,244,239,0.6); line-height: 1.7;">Размерные сетки, инфографика условий заказа, карточки товаров — всё в едином визуальном языке бренда. Формат оптимизирован под требования WB и OZON.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(247,244,239,0.08);">
+      <div style="padding: 1rem; background: var(--black); text-align: center;">
+        <div style="font-family: var(--serif); font-size: 2rem; font-style: italic; color: var(--accent);">7</div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247,244,239,0.4); margin-top: 0.3rem;">Размеров</div>
+      </div>
+      <div style="padding: 1rem; background: var(--black); text-align: center;">
+        <div style="font-family: var(--serif); font-size: 2rem; font-style: italic; color: var(--accent);">±2</div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247,244,239,0.4); margin-top: 0.3rem;">см допуск</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>AI Fashion Design Portfolio · 2025–2026</span>
+  <div style="display:flex; gap:1.5rem; align-items:center;">
+    <a href="tel:89640338206" style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); text-decoration:none;">8 964 033 82 06</a>
+    <a href="https://t.me/Eilis_A" target="_blank" style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); text-decoration:none;">Telegram: @Eilis_A</a>
+  </div>
+  <span>All visuals AI-generated</span>
+</footer>
+
+<script>
+  // Reveal
+  const rs = document.querySelectorAll('.r');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.07 });
+  rs.forEach(el => obs.observe(el));
+
+  // Active nav tab on scroll
+  const sections = ['mockups','prints','product','infographic'];
+  const tabs = document.querySelectorAll('.nav-tab');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    tabs.forEach(t => {
+      t.classList.toggle('active', t.getAttribute('href') === '#'+current);
+    });
+  });
+</script>
+</body>
+</html>
